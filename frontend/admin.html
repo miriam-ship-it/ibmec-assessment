@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Â· DiagnÃ³stico IBMEC</title>
+<title>Admin · Diagnóstico IBMEC</title>
 <link href="https://fonts.googleapis.com/css2?family=Krub:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -105,7 +105,7 @@
 <body>
 
 <!-- ============================================================
-     CONFIG SUPABASE â€” mesmo bloco do index.html
+     CONFIG SUPABASE — mesmo bloco do index.html
      ============================================================ -->
 <script>
 window.APP_CONFIG = {
@@ -123,8 +123,8 @@ window.__createSupabaseClient = createClient;
 <!-- ============ LOGIN ============ -->
 <div id="view-login" class="login-wrap view">
   <div class="card">
-    <h1>Admin Â· DiagnÃ³stico IBMEC</h1>
-    <div class="sub">Acesso restrito Â· faÃ§a login com sua conta Supabase</div>
+    <h1>Admin · Diagnóstico IBMEC</h1>
+    <div class="sub">Acesso restrito · faça login com sua conta Supabase</div>
     <div id="login-error" class="alert-error hidden"></div>
     <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="miriam@boomit.com.br"></div>
     <div class="form-group"><label>Senha</label><input type="password" id="login-password"></div>
@@ -137,7 +137,7 @@ window.__createSupabaseClient = createClient;
   <div class="header">
     <div>
       <div class="eyebrow">Admin</div>
-      <h1>DiagnÃ³stico IBMEC Â· Junho 2026</h1>
+      <h1>Diagnóstico IBMEC · Junho 2026</h1>
     </div>
     <div style="display:flex;gap:10px;align-items:center;">
       <span id="user-email" style="font-size: 12px; opacity: 0.7;"></span>
@@ -148,18 +148,18 @@ window.__createSupabaseClient = createClient;
   <div class="container">
     <!-- Stats -->
     <div class="stats" id="stats-row">
-      <div class="stat stat-yellow"><div class="stat-label">Respondentes</div><div class="stat-value" id="stat-total">â€”</div></div>
-      <div class="stat"><div class="stat-label">Finalizados</div><div class="stat-value" id="stat-final">â€”</div></div>
-      <div class="stat stat-green"><div class="stat-label">Com email (leads)</div><div class="stat-value" id="stat-email">â€”</div></div>
-      <div class="stat stat-royal"><div class="stat-label">PDF enviados</div><div class="stat-value" id="stat-pdf">â€”</div></div>
-      <div class="stat"><div class="stat-label">Erros geraÃ§Ã£o</div><div class="stat-value" id="stat-err">â€”</div></div>
+      <div class="stat stat-yellow"><div class="stat-label">Respondentes</div><div class="stat-value" id="stat-total">—</div></div>
+      <div class="stat"><div class="stat-label">Finalizados</div><div class="stat-value" id="stat-final">—</div></div>
+      <div class="stat stat-green"><div class="stat-label">Com email (leads)</div><div class="stat-value" id="stat-email">—</div></div>
+      <div class="stat stat-royal"><div class="stat-label">PDF enviados</div><div class="stat-value" id="stat-pdf">—</div></div>
+      <div class="stat"><div class="stat-label">Erros geração</div><div class="stat-value" id="stat-err">—</div></div>
     </div>
 
     <!-- Filtros + Tabela -->
     <div class="card">
       <h2>Leads do evento</h2>
       <div class="filters">
-        <div class="filter-group"><label>NÃ­vel</label>
+        <div class="filter-group"><label>Nível</label>
           <select id="f-persona" onchange="loadLeads()">
             <option value="">Todos</option>
             <option value="A">Analista</option>
@@ -171,7 +171,7 @@ window.__createSupabaseClient = createClient;
         <div class="filter-group"><label>Porte</label>
           <select id="f-tamanho" onchange="loadLeads()">
             <option value="">Todos</option>
-            <option value="S1">AtÃ© 50</option>
+            <option value="S1">Até 50</option>
             <option value="S2">51-250</option>
             <option value="S3">251-1000</option>
             <option value="S4">Mais de 1000</option>
@@ -180,14 +180,14 @@ window.__createSupabaseClient = createClient;
         <div class="filter-group"><label>Setor</label>
           <select id="f-segmento" onchange="loadLeads()">
             <option value="">Todos</option>
-            <option value="V1">Tecnologia & InovaÃ§Ã£o</option>
+            <option value="V1">Tecnologia & Inovação</option>
             <option value="V2">Financeiro & Fintech</option>
             <option value="V3">Varejo & Consumo</option>
-            <option value="V4">IndÃºstria & Manufatura</option>
-            <option value="V5">ServiÃ§os Profissionais</option>
-            <option value="V6">SaÃºde & Farma</option>
-            <option value="V7">EducaÃ§Ã£o</option>
-            <option value="V8">Setor PÃºblico</option>
+            <option value="V4">Indústria & Manufatura</option>
+            <option value="V5">Serviços Profissionais</option>
+            <option value="V6">Saúde & Farma</option>
+            <option value="V7">Educação</option>
+            <option value="V8">Setor Público</option>
             <option value="V9">Outros</option>
           </select>
         </div>
@@ -206,7 +206,7 @@ window.__createSupabaseClient = createClient;
       </div>
 
       <div class="toolbar" style="margin-top: 18px;">
-        <div class="info" id="leads-info">Carregandoâ€¦</div>
+        <div class="info" id="leads-info">Carregando…</div>
         <button class="btn btn-small" onclick="exportCSV()">Exportar CSV</button>
       </div>
 
@@ -218,7 +218,7 @@ window.__createSupabaseClient = createClient;
               <th>Nome</th>
               <th>Empresa</th>
               <th>Cargo</th>
-              <th>NÃ­vel</th>
+              <th>Nível</th>
               <th>Porte</th>
               <th>Setor</th>
               <th>Email</th>
@@ -230,7 +230,7 @@ window.__createSupabaseClient = createClient;
             </tr>
           </thead>
           <tbody id="leads-tbody">
-            <tr><td colspan="13" class="empty">Carregandoâ€¦</td></tr>
+            <tr><td colspan="13" class="empty">Carregando…</td></tr>
           </tbody>
         </table>
       </div>
@@ -248,7 +248,7 @@ async function getClient() {
   if (_client) return _client;
   if (!window.__createSupabaseClient) {
     await new Promise(r => setTimeout(r, 200));
-    if (!window.__createSupabaseClient) throw new Error('Supabase JS nÃ£o carregou');
+    if (!window.__createSupabaseClient) throw new Error('Supabase JS não carregou');
   }
   _client = window.__createSupabaseClient(
     window.APP_CONFIG.SUPABASE_URL,
@@ -359,7 +359,7 @@ async function loadLeads() {
       query = query.eq('nivel_hierarquico', personaMap[persona]);
     }
     if (tamanho) {
-      const porteMap = {S1:'AtÃ© 50', S2:'51-250', S3:'251-1000', S4:'Mais de 1000'};
+      const porteMap = {S1:'Até 50', S2:'51-250', S3:'251-1000', S4:'Mais de 1000'};
       query = query.eq('porte', porteMap[tamanho]);
     }
     if (segmento) query = query.eq('setor_id', segmento);
@@ -380,13 +380,13 @@ async function loadLeads() {
 }
 
 function fmtDate(iso) {
-  if (!iso) return 'â€”';
+  if (!iso) return '—';
   const d = new Date(iso);
   return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 }
 
 function fmtMoney(v) {
-  if (v == null) return 'â€”';
+  if (v == null) return '—';
   return Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
 }
 
@@ -398,27 +398,27 @@ function renderLeads() {
     return;
   }
   tbody.innerHTML = _leads.map(l => {
-    const scoreBadge = `<span class="badge badge-${l.score_lead || 'frio'}">${l.score_lead || 'â€”'}</span>`;
+    const scoreBadge = `<span class="badge badge-${l.score_lead || 'frio'}">${l.score_lead || '—'}</span>`;
     const gradeBadge = l.maturidade_letra
       ? `<span class="badge badge-grade">${l.maturidade_letra}</span> ${l.maturidade_score ? l.maturidade_score.toFixed(0) : ''}`
-      : 'â€”';
+      : '—';
     const cdlRange = (l.cdl_min && l.cdl_max)
-      ? `${fmtMoney(l.cdl_min)} â€“ ${fmtMoney(l.cdl_max)}` : 'â€”';
-    const risco = l.risco_estrategico != null ? `${l.risco_estrategico.toFixed(0)}%` : 'â€”';
+      ? `${fmtMoney(l.cdl_min)} – ${fmtMoney(l.cdl_max)}` : '—';
+    const risco = l.risco_estrategico != null ? `${l.risco_estrategico.toFixed(0)}%` : '—';
     return `<tr>
       <td>${fmtDate(l.submetido_em)}</td>
-      <td>${l.nome || 'â€”'}</td>
-      <td>${l.empresa || 'â€”'}</td>
-      <td class="muted">${l.cargo || 'â€”'}</td>
-      <td>${l.nivel_hierarquico || 'â€”'}</td>
-      <td>${l.porte || 'â€”'}</td>
-      <td>${l.setor_id || 'â€”'}</td>
-      <td><a href="mailto:${l.email}">${l.email || 'â€”'}</a></td>
+      <td>${l.nome || '—'}</td>
+      <td>${l.empresa || '—'}</td>
+      <td class="muted">${l.cargo || '—'}</td>
+      <td>${l.nivel_hierarquico || '—'}</td>
+      <td>${l.porte || '—'}</td>
+      <td>${l.setor_id || '—'}</td>
+      <td><a href="mailto:${l.email}">${l.email || '—'}</a></td>
       <td>${gradeBadge}</td>
       <td>${cdlRange}</td>
       <td>${risco}</td>
       <td>${scoreBadge}</td>
-      <td>${l.pdf_enviado_em ? '<span title="PDF enviado">âœ‰</span>' : ''}</td>
+      <td>${l.pdf_enviado_em ? '<span title="PDF enviado">✉</span>' : ''}</td>
     </tr>`;
   }).join('');
 }
@@ -440,7 +440,7 @@ function exportCSV() {
   };
   const header = cols.join(',');
   const rows = _leads.map(l => cols.map(c => escape(l[c])).join(','));
-  const csv = 'ï»¿' + header + '\n' + rows.join('\n');  // BOM para Excel reconhecer UTF-8
+  const csv = '﻿' + header + '\n' + rows.join('\n');  // BOM para Excel reconhecer UTF-8
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -453,7 +453,7 @@ function exportCSV() {
   URL.revokeObjectURL(url);
 }
 
-// InicializaÃ§Ã£o
+// Inicialização
 document.getElementById('login-password').addEventListener('keydown', e => {
   if (e.key === 'Enter') login();
 });
