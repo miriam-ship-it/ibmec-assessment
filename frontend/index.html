@@ -777,8 +777,23 @@ const state = { identificacao: {}, perguntasOrdem: [], respostas: {}, idxAtual: 
 window.app = (function() {
   let _client = null;
   let _eventoId = null;
+  let _token = null;              // token da sessão desta pessoa
   const LS_KEY = 'ibmec-assessment-session';
 
+  /**
+   * O cliente do Supabase, carimbado com o token da sessão.
+   *
+   * 🔑 A RLS MUDOU EM 14/08 E ESTE ARQUIVO PRECISOU ACOMPANHAR.
+   *    As policies de `anon` eram `using (true)`: qualquer pessoa com a chave
+   *    pública lia — e alterava — todos os respondentes, e-mail incluído.
+   *    Agora a policy só devolve a linha cujo token_sessao bate com o
+   *    cabeçalho `x-sessao`. Sem este patch, o INSERT continua passando mas o
+   *    RETURNING volta vazio, e a tela morre em "Erro ao iniciar".
+   *
+   * 🔑 O token nasce AQUI, no cliente, porque o RETURNING do INSERT passa
+   *    pela policy de SELECT: com token vindo do default da coluna, o front
+   *    pediria de volta um token que ainda não conhece.
+   */
   async function getClient() {
     if (_client) return _client;
     if (!window.__createSupabaseClient) {
@@ -787,9 +802,27 @@ window.app = (function() {
     _client = window.__createSupabaseClient(
       window.APP_CONFIG.SUPABASE_URL,
       window.APP_CONFIG.SUPABASE_ANON_KEY,
-      { auth: { persistSession: false } }
+      { auth: { persistSession: false },
+        global: { headers: _token ? { 'x-sessao': _token } : {} } }
     );
     return _client;
+  }
+
+  /** UUID v4 sem depender de crypto.randomUUID (ausente em Safari < 15.4). */
+  function novoToken() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    const b = crypto.getRandomValues(new Uint8Array(16));
+    b[6] = (b[6] & 0x0f) | 0x40;
+    b[8] = (b[8] & 0x3f) | 0x80;
+    const h = [...b].map((x) => x.toString(16).padStart(2, '0')).join('');
+    return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`;
+  }
+
+  /** Troca o token da sessão — e joga fora o cliente, que carrega o antigo. */
+  function usarToken(token) {
+    if (_token === token) return;
+    _token = token;
+    _client = null;
   }
 
   async function getEventoId() {
@@ -820,10 +853,14 @@ window.app = (function() {
   }
 
   async function createRespondente(ident) {
+    const evento_id = await getEventoId();   // ainda sem token: eventos é público
+    // o token nasce aqui e já entra no cabeçalho, para o RETURNING enxergar a linha
+    const token = novoToken();
+    usarToken(token);
     const sb = await getClient();
-    const evento_id = await getEventoId();
     const payload = {
       evento_id,
+      token_sessao: token,
       nome: ident.nome,
       empresa: ident.empresa,
       cargo: ident.cargo,

@@ -346,7 +346,16 @@ async function loadLeads() {
   document.getElementById('leads-info').textContent = 'Carregando...';
   try {
     const sb = await getClient();
-    let query = sb.from('v_leads_export').select('*').order('submetido_em', { ascending: false });
+    // 🔴 O MESMO DEFEITO DO OUTRO LADO, ESPELHADO. A view v_leads_export não
+    //    filtra por evento (`where r.email is not null`) e o loadStats() aqui
+    //    do lado sempre filtrou por slug. Enquanto o banco tinha um evento só,
+    //    ninguém notava. Agora que existe um segundo evento na mesma base,
+    //    este painel passaria a listar — e exportar em CSV — leads do outro
+    //    cliente assim que eles aparecessem.
+    let query = sb.from('v_leads_export')
+      .select('*')
+      .eq('evento_slug', window.APP_CONFIG.EVENTO_SLUG)
+      .order('submetido_em', { ascending: false });
 
     const persona = document.getElementById('f-persona').value;
     const tamanho = document.getElementById('f-tamanho').value;
